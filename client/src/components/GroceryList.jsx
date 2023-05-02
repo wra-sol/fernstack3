@@ -61,6 +61,8 @@ const GroceryList = ({token}) => {
   if (groceryItems)
     return (
       <Grid container>
+        <Grid item xs={12}>
+        <Grid container>
         <Grid item component={List} xs={12} sm={8} sx={{margin: '0 auto'}}>
           {Object.values (groceryItems)
             .filter (item => !item.checked)
@@ -73,10 +75,27 @@ const GroceryList = ({token}) => {
                 onEdit={handleItemEdit}
               />
             ))}
+            </Grid>
+            </Grid>
         </Grid>
+        <Grid item xs={12}>
         <CheckedItems items={checkedItems} handleItemCheck={handleItemCheck} handleRemoveClick={handleRemoveClick} onEdit={handleItemEdit}/>
+        </Grid>
         <Grid container justifyContent={'center'} py={2}>
-          <Grid item component={Button} disabled={!checkedItems.length} xs={6} sm={2} variant='outlined' p={2} onClick={() => handleRemoveClick(checkedItems)}>Complete trip</Grid>
+          <Grid 
+              item 
+              xs={6} 
+              sm={2} 
+              variant={'contained'} 
+            >
+              <Button
+                disabled={!checkedItems.length} 
+                variant={'contained'}
+                onClick={() => handleRemoveClick(checkedItems)}
+              >
+              Complete trip
+              </Button>
+            </Grid>
         </Grid>
       </Grid>
     );

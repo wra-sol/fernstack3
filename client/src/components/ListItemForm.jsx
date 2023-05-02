@@ -18,35 +18,35 @@ const ListItemForm = ({
             secondary={checked ? '' : `${item.quantity} ${item.measurement}`}
             sx={{color: isCheckedColor}}
           />
-        : <Grid container spacing={1}>
-            <Grid
-              item
-              component={TextField}
-              id="name"
-              value={inputValues.name}
-              onChange={handleChange}
-            />
-            <Grid
-              item
-              component={TextField}
-              id="quantity"
-              value={inputValues.quantity}
-              onChange={handleChange}
-              flex={'1 1 100px'}
-            />
-            <Grid
-              item
-              component={TextField}
-              select
-              id="measurement"
-              value={inputValues.measurement}
-              onChange={handleChange}
-            >
-              {commonMeasurements.map (unit => (
-                <MenuItem key={unit} value={unit}>
-                  {unit}{item.quantity > 1 ? 's' : ''}
-                </MenuItem>
-              ))}
+        : <Grid container>
+            <Grid item xs={9}>
+              <TextField
+                id="name"
+                value={inputValues.name}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <TextField
+                id="quantity"
+                value={inputValues.quantity}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={4} sm={12} mx={'.1rem'} py={1}>
+              <TextField
+                select
+                id="measurement"
+                value={inputValues.measurement}
+                onChange={handleChange}
+                fullWidth
+              >
+                {commonMeasurements.map (unit => (
+                  <MenuItem key={unit} value={unit}>
+                    {unit}{item.quantity > 1 ? 's' : ''}
+                  </MenuItem>
+                ))}
+              </TextField>
             </Grid>
           </Grid>}
     </Grid>

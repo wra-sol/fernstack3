@@ -1,6 +1,6 @@
 //GroceryListItem.jsx
 import {useState} from 'react';
-import {Grid, IconButton} from '@mui/material';
+import {Grid, Icon, IconButton} from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import AutoRenewIcon from '@mui/icons-material/Autorenew';
 import EditIcon from '@mui/icons-material/Edit';
@@ -47,28 +47,24 @@ const GroceryListItem = ({
   };
   return (
     <Grid container alignItems={'center'}>
-      <Grid item xs={2}>
+      <Grid item xs={1} mx={1}>
         <Grid container>
           {isEditable &&
-            <Grid
-              item
-              xs={12}
-              sm={6}
-              component={IconButton}
-              onClick={handleEdit}
-            >
-              <ClearIcon />
+            <Grid item xs={12} py={1}>
+              <IconButton
+                sx={{backgroundColor: 'secondary.dark'}}
+                onClick={handleEdit}
+              >
+                <ClearIcon />
+              </IconButton>
             </Grid>}
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            component={IconButton}
-            onClick={!isEditable ? handleEdit : handlePublishChanges}
-          >
-            {!isEditable
-              ? <EditIcon />
-              : <PublishedWithChangesIcon color="success" />}
+          <Grid item xs={12} py={1}>
+            <IconButton
+              onClick={!isEditable ? handleEdit : handlePublishChanges}
+              sx={{backgroundColor: 'secondary.main'}}
+            >
+              {!isEditable ? <EditIcon /> : <PublishedWithChangesIcon />}
+            </IconButton>
           </Grid>
         </Grid>
       </Grid>
@@ -78,12 +74,15 @@ const GroceryListItem = ({
         handleChange={handleChange}
         isEditable={isEditable}
       />
-      <Grid item xs={2} component={IconButton} onClick={handleClick}>
-        {isEditable
-          ? <ClearIcon color="error" />
-          : item.checked
-              ? <AutoRenewIcon color="warning" />
-              : <CheckIcon color="success" />}
+      <Grid item xs={1} mx={1}>
+        <IconButton
+          onClick={handleClick}
+          sx={{backgroundColor: 'primary.main'}}
+        >
+          {isEditable
+            ? <ClearIcon />
+            : item.checked ? <AutoRenewIcon /> : <CheckIcon />}
+        </IconButton>
       </Grid>
     </Grid>
   );

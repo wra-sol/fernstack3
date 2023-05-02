@@ -2,10 +2,10 @@ import express from 'express';
 const router = express.Router ();
 import {db} from './firebase.js';
 import {ref, set, get, update, remove} from 'firebase/database';
+import verifyToken from './middlewares/verifyToken.js';
 
-router.get ('/data', async (req, res, next) => {
+router.get ('/data', verifyToken, async (req, res, next) => {
   const {userId} = req.body;
-  console.log(userId)
   try {
     get (ref (db, 'users/' + userId )).then (snapshot => {
       if (snapshot.exists ()) {
@@ -20,7 +20,7 @@ router.get ('/data', async (req, res, next) => {
   }
 });
 
-router.post ('/data', async (req, res, next) => {
+router.post ('/data', verifyToken, async (req, res, next) => {
   
   const {userId, userData} = req.body;
 
@@ -37,7 +37,7 @@ router.post ('/data', async (req, res, next) => {
   }
 });
 
-router.put('/data', async (req, res, next) => {
+router.put('/data', verifyToken, async (req, res, next) => {
   const { userId, updatedData } = req.body;
 
   try {
@@ -53,7 +53,7 @@ router.put('/data', async (req, res, next) => {
   }
 });
 
-router.delete('/data', async (req, res, next) => {
+router.delete('/data', verifyToken, async (req, res, next) => {
   const { userId, items } = req.body;
   console.log(items)
   try {

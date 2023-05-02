@@ -1,6 +1,7 @@
 //About.jsx
+import { Typography } from "@mui/material";
 
 const About = () => {
-	return(<h1>About</h1>)
+	return(<Typography variant="h1">About</Typography>)
 };
 export default About;

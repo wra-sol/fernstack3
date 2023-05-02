@@ -4,9 +4,11 @@ import PageLayout from './contexts/PageLayout';
 import {AuthProvider} from './contexts/AuthProvider';
 import PrivatePage from './contexts/PrivatePage';
 import {QueryClient, QueryClientProvider} from 'react-query';
+import {ThemeProvider} from '@mui/material';
+import theme from './theme';
 const App = () => {
   const [routes, setRoutes] = useState ([]);
-	const queryClient = new QueryClient();
+  const queryClient = new QueryClient ();
 
   useEffect (() => {
     function loadPages () {
@@ -35,26 +37,30 @@ const App = () => {
     <Router>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
-          <PageLayout routes={routes}>
-            <Suspense fallback={<div>Loading...</div>}>
-              <Routes>
-                {routes.map (
-                  (route, index) =>
-                    route.isPrivate
-                      ? <Route
-                          key={index}
-                          path={route.path}
-                          element={<PrivatePage component={route.component} />}
-                        />
-                      : <Route
-                          key={index}
-                          path={route.path}
-                          element={<route.component />}
-                        />
-                )}
-              </Routes>
-            </Suspense>
-          </PageLayout>
+          <ThemeProvider theme={theme}>
+            <PageLayout routes={routes}>
+              <Suspense fallback={<div>Loading...</div>}>
+                <Routes>
+                  {routes.map (
+                    (route, index) =>
+                      route.isPrivate
+                        ? <Route
+                            key={index}
+                            path={route.path}
+                            element={
+                              <PrivatePage component={route.component} />
+                            }
+                          />
+                        : <Route
+                            key={index}
+                            path={route.path}
+                            element={<route.component />}
+                          />
+                  )}
+                </Routes>
+              </Suspense>
+            </PageLayout>
+          </ThemeProvider>
         </AuthProvider>
       </QueryClientProvider>
     </Router>
